@@ -1,7 +1,7 @@
 package com.cosmicfin.universe;
 
-import com.cosmicfin.proceduralpoetry.Word;
-import com.cosmicfin.proceduralpoetry.WordType;
+//import com.cosmicfin.proceduralpoetry.Word;
+//import com.cosmicfin.proceduralpoetry.WordType;
 
 import java.util.Random;
 
@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Generator {
 
-  private static Word[] nouns = {
+  /*private static Word[] nouns = {
       new Word("way", 1, WordType.NOUN),
       new Word("group", 1, WordType.NOUN),
       new Word("problem", 2, WordType.NOUN),
@@ -113,7 +113,7 @@ public class Generator {
       new Word("green", 1, WordType.ADJECTIVE),
       new Word("nice", 1, WordType.ADJECTIVE),
       new Word("huge", 1, WordType.ADJECTIVE)
-  };
+  };*/
 
   private static String[] familyNames = {
       "Smith",
@@ -817,12 +817,22 @@ public class Generator {
       "Mexican Food"
   };
 
+  private static String[] city_firstpart = { //TODO more city name options
+      "Large",
+      "Noble"
+  };
+
+  private static String[] city_secondpart = { //TODO more city secondparts
+      "Water",
+      "House"
+  };
+
   //TODO GUI
   //TODO descriptions of things
 
   public static String randCityName() {
     //TODO add MORE CITIES (one at a time to avoid memory boiling over)
-    return "THE CITY OF " + choose(adjectives) + choose(nouns);
+    return "THE CITY OF " + choose(city_firstpart) + choose(city_secondpart);
   }
 
   public static String randBuildingName(BuildingType type) {
