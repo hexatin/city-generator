@@ -1,4 +1,4 @@
-package com.cosmicfin.universe;
+//package com.cosmicfin.universe;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -45,7 +45,13 @@ public class Building extends Thing {
       name = Generator.randBuildingName(type);
     }
     Random r = new Random();
-    rooms = new Room[r.nextInt(5) + 1];
+    int maxRooms = 6;
+    int minRooms = 1;
+    if(type == BuildingType.HOTEL){
+      minRooms = 50;
+      maxRooms = 300;
+    }
+    rooms = new Room[(r.nextInt(maxRooms - minRooms)) + minRooms];
     for (int i = 0; i < rooms.length; i++) {
       rooms[i] = new Room(this, type, lastname);
     }

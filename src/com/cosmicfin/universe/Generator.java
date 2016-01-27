@@ -1,4 +1,4 @@
-package com.cosmicfin.universe;
+//package com.cosmicfin.universe;
 
 //import com.cosmicfin.proceduralpoetry.Word;
 //import com.cosmicfin.proceduralpoetry.WordType;
@@ -827,6 +827,31 @@ public class Generator {
       "House"
   };
 
+  private static String[] hotelrecreation = {
+      "Swimming Pool",
+      "Spa",
+      "Large Swimming Pool",
+      "Artifical Beach",
+      "Hot Spring",
+      "Sauna",
+      "Lounge",
+      "Tennis Court",
+      "Golf Field",
+      "Casino",
+      "Bar",
+      "Restaurant"
+  };
+
+  private static String[] hoteladministration = {
+    "Lobby",
+    "Janitor's Closet",
+    "Laundry Room",
+    "Electrician's Room",
+    "Communal Bathroom"
+  };
+
+
+  private static Random r = new Random();
   //TODO GUI
   //TODO descriptions of things
 
@@ -836,7 +861,6 @@ public class Generator {
   }
 
   public static String randBuildingName(BuildingType type) {
-    Random r = new Random();
     //TODO generate names for each type of building
     //TODO generate shops inside malls
     //TODO generate shelves inside shops with products on them
@@ -884,6 +908,14 @@ public class Generator {
         return "" + choose(outsiderooms);
       case LIVING:
         return "" + choose(livingrooms);
+      case HOTEL_ROOM:
+        return "Room " + (r.nextInt(299) + 100);
+      case HOTEL_REC:
+        return "" + choose(hotelrecreation);
+      case HOTEL_ADMIN:
+        return "" + choose(hoteladministration);
+      case HOTEL_CREEPY:
+        return "Attic";
       default:
         return "Room";
     }
@@ -913,17 +945,30 @@ public class Generator {
   }
 
   public static FurnitureCategory randRoomCategory(BuildingType type) {
-    Random r = new Random();
     //TODO furniture category based on building type
-    if (r.nextInt(100) <= 50) {
-      return (FurnitureCategory) choose(new FurnitureCategory[]{FurnitureCategory.BED, FurnitureCategory.BATH});
-    } else {
-      return (FurnitureCategory) weightedChoose(new FurnitureCategory[]{FurnitureCategory.KITCHEN, FurnitureCategory.DINING, FurnitureCategory.LIVING, FurnitureCategory.OUTSIDE}, 2);
+    switch(type){
+      case HOUSE:
+        if (r.nextInt(100) <= 50) {
+          return (FurnitureCategory) choose(new FurnitureCategory[]{FurnitureCategory.BED, FurnitureCategory.BATH});
+        } else {
+          return (FurnitureCategory) weightedChoose(new FurnitureCategory[]{FurnitureCategory.KITCHEN, FurnitureCategory.DINING, FurnitureCategory.LIVING, FurnitureCategory.OUTSIDE}, 2);
+        }
+      case HOTEL:
+        if(r.nextInt(1000000) == 42){
+          return FurnitureCategory.HOTEL_CREEPY;
+        }else{
+          return (FurnitureCategory) weightedChoose(new FurnitureCategory[]{FurnitureCategory.HOTEL_ROOM, FurnitureCategory.HOTEL_REC, FurnitureCategory.HOTEL_ADMIN}, 10);
+        }
+      default:
+        if (r.nextInt(100) <= 50) {
+          return (FurnitureCategory) choose(new FurnitureCategory[]{FurnitureCategory.BED, FurnitureCategory.BATH});
+        } else {
+          return (FurnitureCategory) weightedChoose(new FurnitureCategory[]{FurnitureCategory.KITCHEN, FurnitureCategory.DINING, FurnitureCategory.LIVING, FurnitureCategory.OUTSIDE}, 2);
+        }
     }
   }
 
   public static String randPersonName() {
-    Random r = new Random();
     String[] toChooseFrom = r.nextBoolean() ? firstNamesBoys : firstNamesGirls;
     return weightedChoose(toChooseFrom, 1.14) + " ";
   }
@@ -935,13 +980,11 @@ public class Generator {
   //TODO pets
 
   public static Object choose(Object[] arr) {
-    Random r = new Random();
     int rand = r.nextInt(arr.length);
     return arr[rand];
   }
 
   public static Object weightedChoose(Object[] arr, double weight) {
-    Random r = new Random();
     if (weight <= 0) weight = 1;
     return arr[((int) Math.floor(Math.pow(Math.random(), weight) * arr.length))];
   }
