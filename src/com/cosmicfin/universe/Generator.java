@@ -1,4 +1,4 @@
-//package com.cosmicfin.universe;
+package com.cosmicfin.universe;
 
 //import com.cosmicfin.proceduralpoetry.Word;
 //import com.cosmicfin.proceduralpoetry.WordType;
@@ -959,6 +959,8 @@ public class Generator {
         }else{
           return (FurnitureCategory) weightedChoose(new FurnitureCategory[]{FurnitureCategory.HOTEL_ROOM, FurnitureCategory.HOTEL_REC, FurnitureCategory.HOTEL_ADMIN}, 10);
         }
+      case APARTMENT:
+        return (FurnitureCategory) weightedChoose(new FurnitureCategory[]{FurnitureCategory.APT_ROOM, FurnitureCategory.APT_ADMIN},10);
       default:
         if (r.nextInt(100) <= 50) {
           return (FurnitureCategory) choose(new FurnitureCategory[]{FurnitureCategory.BED, FurnitureCategory.BATH});
